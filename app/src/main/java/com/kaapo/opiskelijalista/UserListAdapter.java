@@ -8,11 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserViewHolder>{
 
     private Context context;
-    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<User> users;
 
     public UserListAdapter(Context context, ArrayList<User> users) {
         this.context = context;
@@ -32,6 +34,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserViewHolder>{
         holder.userDegree.setText(users.get(position).getDegreeProgram());
 
 
+    }
+    public void sortUsersByLastName() {
+        users.sort(Comparator.comparing(User::getLastName));
+        notifyDataSetChanged();
     }
 
     @Override

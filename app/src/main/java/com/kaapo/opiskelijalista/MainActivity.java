@@ -4,14 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.RadioGroup;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
     private EditText editTextEtunimi;
@@ -43,13 +43,18 @@ public class MainActivity extends AppCompatActivity {
 
     User newUser = new User(nimi, sukunimi, sahkoposti, opinnot);
 
-    UserStorage s = UserStorage.getInstance();
+    UserStorage s = UserStorage.getInstance(this);
 
     s.addUser(newUser);
+    s.saveUsers(this);
 
     }
 
     public void switchToUserList(View view) {
+        UserStorage userStorage = UserStorage.getInstance(this);
+        ArrayList<User> users = userStorage.getUsers();
+        UserListAdapter adapter = new UserListAdapter(this, users);
+        adapter.sortUsersByLastName();
         Intent intent = new Intent(this, ListUserActivity.class);
         startActivity(intent);
     }

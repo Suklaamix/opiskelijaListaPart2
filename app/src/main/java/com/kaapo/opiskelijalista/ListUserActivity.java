@@ -16,7 +16,7 @@ public class ListUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_user);
 
-        storage = UserStorage.getInstance();
+        storage = UserStorage.getInstance(this);
 
         recyclerView = findViewById(R.id.rvUserList);
 
